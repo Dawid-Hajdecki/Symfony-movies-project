@@ -1,0 +1,54 @@
+{% extends "./base.html.twig" %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block body %}
+	<div class="sm:w-3/5 w-4/5 block mx-auto">
+		{% include 'backButton.html.twig' with {'link': '/movies'}%}
+		<div class="text-center">
+			<h1 class="sm:text-5xl md:text-7xl text-4xl font-bold">
+				{{ movie.title }}: {{ movie.releaseYear }}
+			</h1>
+
+			<div class="py-3 text-center">
+				<div class="inline-block sm:pt-1">
+					<h2 class="font-bold">Last updated by: {{ movie.user.name }}</h2>
+					<p class="text-sm text-gray-600">Last updated at {{ movie.updatedAt|date('H:i d/m/y') }}</p>
+				</div>
+			</div>
+
+			<div class="mx-auto w-2/5">
+				<img src="../{{ movie.imagePath }}" class="rounded-xl w-full shadow-xl"/>
+			</div>
+			<p class="text-xl py-6">{{ movie.description }}</p>
+			{% if is_granted('ROLE_ADMIN') %}
+				<a href="/movies/edit/{{ movie.id }}"  class="inline-block bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-800">Edit Movie</a>
+				<a href="/movies/delete/{{ movie.id }}"  class="inline-block bg-red-500 font-bold py-2 px-4 rounded transition-all hover:bg-red-800">Delete Movie</a>
+			{% endif %}
+			<div>
+				<h3 class="my-2">Comments({{ comments|length }}):</h3>
+				<div class="text-right">
+
+				<a href="/movies/{{ movie.id }}/comment/create"  class="inline-block bg-green-500 font-bold m-2 py-2 px-4 rounded transition-all hover:bg-green-800">Add Comment</a>
+				</div>
+
+				{% if comments %}
+					{% for comment in comments %}
+						<div class="bg-purple-200 rounded m-2 p-2 text-left">
+							<strong>{{ comment.user.name }} - {{ comment.updatedAt|date('H:i d/m/y') }}</strong><br>
+							<div class="m-3">
+								{{ comment.id }}: {{ comment.content }}
+							</div>
+							{% if comment.user.id == currentUser.id or is_granted('ROLE_ROOT')%}
+								<a href="/movies/{{ movie.id }}/comment/edit/{{ comment.id }}"  class="inline-block bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-800">Edit Comment</a>
+							{% endif %}
+							{% if comment.user.id == currentUser.id or is_granted('ROLE_ADMIN')%}
+								<a href="/movies/{{ movie.id }}/comment/delete/{{ comment.id }}"  class="inline-block bg-red-500 font-bold py-2 px-4 rounded transition-all hover:bg-red-800">Delete Comment</a>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

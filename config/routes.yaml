@@ -1,0 +1,12 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+app_not_found:
+    path: /{path}
+    # the controller value has the format 'controller_class::method_name'
+    controller: App\Controller\ErrorController::routeNotFound
+    requirements:
+        path: .+

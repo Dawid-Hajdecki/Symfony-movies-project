@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Showing users!{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto w-4/5">
+        {% include 'backButton.html.twig' with {'link': '/admin'}%}
+
+        <div class="lg:w-2/5 sm:w-4/5 mx-auto">
+            {% for user in users %}
+                {% if is_granted('ROLE_ROOT') %}
+                    <a href="/admin/users_root/{{ user.id }}">
+                {% else %}
+                    <a href="/admin/users/{{ user.id }}">
+                {% endif %}
+                    <div class="text-center bg-amber-200 p-3 rounded shadow-lg m-2 hover:bg-amber-300 min-w-64">
+                        <span class="p-2"><strong>ID: </strong>{{ user.id }}</span>
+                        <span class="p-2"><strong>Email: </strong>{{ user.email }}</span>
+                        <span class="p-2"><strong>Name: </strong>{{ user.name }}</span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

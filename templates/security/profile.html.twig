@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile!{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto">
+		<div class="grid grid-cols-1 gap-4 place-content-center">
+			<div class="mx-auto w-4/5">
+
+				{% include 'backButton.html.twig' with {'link': '/'}%}
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+
+				<button type="submit" class="mx-auto block uppercase mt-15 bg-blue-500 text-gray-100 text-lg w-2/5 mt-10 font-extrabold py-4 px-8 rounded-3xl min-w-40">Change details</button>
+				<a href="/profile/changePassword" class="mx-auto block uppercase mt-15 bg-blue-500 text-gray-100 text-lg w-2/5 mt-10 font-extrabold py-4 px-8 rounded-3xl min-w-40 text-center">Change password</a>
+
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

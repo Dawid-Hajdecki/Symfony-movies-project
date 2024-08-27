@@ -1,0 +1,18 @@
+{% extends "./base.html.twig" %}
+
+{% block title %}Creating a Movie!{% endblock %}
+
+{% block body %}
+	<div class="w-4/5 m-auto">
+		{% include 'backButton.html.twig' with {'link': '/movies'}%}
+		<h1 class="text-6xl text-center pb-12">Create Movie</h1>
+
+		{{ form_start(form) }}
+
+		{{ form_widget(form) }}
+
+		<button type="submit" class="mx-auto block uppercase bg-blue-500 text-gray-100 text-lg w-2/5 mt-10 font-extrabold py-4 px-8 rounded-3xl min-w-40">Create Movie</button>
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

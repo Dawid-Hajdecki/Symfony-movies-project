@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movies!{% endblock %}
+
+{% block body %}
+
+    {%  if  app.user %}
+        <div class="container mx-auto">
+            <div class="h-56 grid grid-cols-3 gap-10 place-content-center text-center">
+                <a href="/profile" class="text-5xl rounded bg-red-500 hover:bg-red-600 text-white py-5 shadow-lg">Profile</a>
+                <a href="/movies" class="text-5xl rounded bg-red-500 hover:bg-red-600 text-white py-5 shadow-lg">Movies</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="/admin" class="text-5xl rounded bg-red-500 hover:bg-red-600 text-white py-5 shadow-lg">Admin</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

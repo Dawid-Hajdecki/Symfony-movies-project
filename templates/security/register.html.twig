@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="w-4/5 m-auto text-center">
+        <h1 class="font-bold text-5xl my-10">Register</h1>
+
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.name) }}
+        {{ form_row(registrationForm.plainPassword) }}
+
+        <div class="checkbox my-3">
+            <label>{{ form_widget(registrationForm.agreeTerms) }} Agree to our terms</label>
+        </div>
+
+        <button type="submit" class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg w-2/5 mt-10 font-extrabold py-4 px-8 rounded-3xl min-w-40">Register</button>
+        <p class="py-2">Or login <a href="/login" class="font-bold hover:font-extrabold">HERE</a></p>
+
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

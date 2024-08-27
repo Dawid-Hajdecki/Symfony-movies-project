@@ -1,0 +1,39 @@
+{% extends "./base.html.twig" %}
+
+{% block title %}Movies!{% endblock %}
+
+{% block body %}
+	<div class="w-4/5 m-auto">
+		{% include 'backButton.html.twig' with {'link': '/'}%}
+		<div class="text-center">
+			<h1 class="text-6xl pb-8">
+				Movies Review ({{ movies|length }})
+			</h1>
+		</div>
+	</div>
+
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="mx-auto w-4/5 my-8">
+			<a href="/movies/create" class="uppercase border border-gray-500 text-lg py-4 px-6 rounded bg-gray-800 text-white">Create New Movie</a>
+		</div>
+	{% endif %}
+
+	<div class="md:grid lg:grid-cols-3 gap-20 w-4/5 mx-auto py-15 mb-4">
+		<!-- Blog Item -->
+		{% for movie in movies %}
+			<a href="/movies/{{ movie.id }}" class="uppercase border border-gray-500 text-gray-600 text-lg py-4 px-12 rounded transition transition-all hover:bg-gray-100">
+				<div class="text-center pt-8 pb-4">
+					<img src="{{ movie.imagePath }}" alt="" class="shadow-xl rounded-md"/>
+
+					<h2 class="text-gray-700 font-bold text-3xl py-2">{{ movie.title }}: {{ movie.releaseYear }}</h2>
+
+					<div class="text-sm inline-block">
+						<span>Created at {{ movie.createdAt|date('H:i d/m/y') }}</span><br>
+						<span>Last updated<br>{{ movie.user.name }} - {{ movie.updatedAt|date('H:i d/m/y') }}</span>
+						<span></span>
+					</div>
+				</div>
+			</a>
+		{% endfor %}
+	</div>
+{% endblock %}
